@@ -12,9 +12,9 @@
 *.o
 *.a
 *.so
-.ninja_deps
-.ninja_log
-.bmp
+*.ninja_deps
+*.ninja_log
+*.bmp
 main
 
 !CMakeLists.txt
