@@ -49,6 +49,8 @@ class image:public virtual image_processing {
 
       // 各種の設定
       initialise();
+
+      // bmpの読み込みとファイルのクローズ
       readBMP();
 
       // bmpの画像処理のコンストラクタ呼び出し(引数:構造体)
@@ -59,7 +61,8 @@ class image:public virtual image_processing {
 
       // 出力ファイルをオープン
       outfile.open("./out.bmp");
-      
+
+      // bmpの書き込みとファイルのクローズ
       writeBMP();
     }
 
@@ -172,7 +175,7 @@ void image::writeBytes(std::ofstream& fp, const T& data){
     fp.write(reinterpret_cast<const char*>(&littleEndianData),sizeof(T));
 
     if (!fp) {
-      throw std::runtime_error("ファイルからデータを書き込むのに失敗しました");
+      throw std::runtime_error("ファイルにデータを書き込むのに失敗しました");
     }
 
   }catch(const std::exception& e){
