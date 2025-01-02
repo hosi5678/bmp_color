@@ -53,9 +53,9 @@ void image_processing::mainProcess() {
   // 画像を書き換える
   for (int j=0; j<height; j++) {
     for (int i=0; i<width; i++) {
-      image_r[j][i]=coefofData(image_r[j][i]);
-      image_g[j][i]=coefofData(image_g[j][i]);
-      image_b[j][i]=coefofData(image_b[j][i]);
+      image_r[j][i]=(image_r[j][i]);
+      image_g[j][i]=(image_g[j][i]);
+      image_b[j][i]=(image_b[j][i]);
     }
   }
 
@@ -64,10 +64,15 @@ void image_processing::mainProcess() {
 // 処理の内容
 uint8_t image_processing::coefofData(uint8_t data) {
 
-  double param2=200;
-  double param1=50;
+  double param2=235;
+  double param1=16;
 
-  uint8_t outData=(uint8_t)((double(param2-param1))/255.0*(double)data)+param1;
+  // uint8_t outData=(uint8_t)((double(param2-param1))/255.0*(double)data)+param1;
+
+  double top=(double)(data-param1)*255;
+  double bottom=(double)(param2-param1);
+
+  uint8_t outData=(uint8_t)(top/bottom);
 
   return outData;
 

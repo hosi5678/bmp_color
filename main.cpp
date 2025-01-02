@@ -9,8 +9,10 @@
 
 int main(){
 
-   image c("./bmpfiles/cap2_01a.bmp");
+   // image d("./bmpfiles/sample.bmp");
+   // image c("out.bmp");
    // image d("out.bmp");
+      image e("./bmpfiles/cap2_01a.bmp");
 
    return 0;
 

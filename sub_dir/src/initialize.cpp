@@ -30,6 +30,7 @@ void image::initialise(){
   std::cout << "height:" << height << std::endl;
 
   std::cout << "width x height: " << width*height << std::endl;
+  std::cout << "3xwidthxheight:" << 3*width*height << std::endl;
   std::cout << "biSizeImage: " << bmpinfoheader.biSizeImage << std::endl;
 
   std::cout << "padding: " << getPadding(width) << std::endl;
@@ -45,14 +46,14 @@ void image::initialise(){
 
   std::cout << "original position: " << _pos << std::endl;
 
-  std::cout << "size of uint8_t: " << sizeof(uint8_t) << std::endl;
-  std::cout << "size of uint16_t: " << sizeof(uint16_t) << std::endl;
-  std::cout << "size of uint32_t: " << sizeof(uint32_t) << std::endl;
-  std::cout << "uint8 max: " << UINT8_MAX << std::endl;
+  // std::cout << "size of uint8_t: " << sizeof(uint8_t) << std::endl;
+  // std::cout << "size of uint16_t: " << sizeof(uint16_t) << std::endl;
+  // std::cout << "size of uint32_t: " << sizeof(uint32_t) << std::endl;
+  // std::cout << "uint8 max: " << UINT8_MAX << std::endl;
 
   std::cout << "file size: " << bmpfileheader.bfSize << std::endl;
 
-  std::cout << "default header size+palette sizex4(r,g,b,dummy)+width(main+padding)xheightx3: " << DEFAULT_HEADER_SIZE+bmpinfoheader.biClrUsed*4+(width+1)*height*3 << std::endl;
+  std::cout << "header size+widthxheightx3: " << DEFAULT_HEADER_SIZE+bmpinfoheader.biClrUsed*4+(width+(4-padding))*3*(height) << std::endl;
 
   palette.length=bmpinfoheader.biClrUsed;
 

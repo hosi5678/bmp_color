@@ -52,6 +52,8 @@ void image::writeBMP() {
   pos=outfile.tellp();
   std::cout << "palette pos=" << pos << std::endl;
 
+  std::cout << "padding:" << padding << std::endl;
+
     // ピクセルデータの書き出し（上から下へ）
     for (int j = 0; j< height ; j++) {
       for (int i = 0; i < width; i++) {
