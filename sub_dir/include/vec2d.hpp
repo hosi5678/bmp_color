@@ -249,9 +249,8 @@ void createDir(const std::string& dir) {
    }
 }
 
-
 // vec2dの内容を10進で1列にファイルに書き込む
-void createFile(const int precision,const std::string& dir,const std::string& file_name) {
+void createFile(const std::string& dir,const std::string& file_name) {
 
    createDir(dir);
 
@@ -263,11 +262,12 @@ void createFile(const int precision,const std::string& dir,const std::string& fi
 
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         ofs << "[" << i << "]: " << std::setw(precision) << this->vec[j][i] << std::endl;
+         ofs << "[" << i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
-      // ファイルを閉じる
-      ofs.close();
+
+   // ファイルを閉じる
+   ofs.close();
 
 }
 
@@ -284,7 +284,7 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
 
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         ofs << "[" << i << "]: " << std::hex << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
+         ofs << "[" << i << "]: " << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
 
