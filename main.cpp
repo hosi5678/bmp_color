@@ -4,15 +4,26 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "sub_dir/include/image.hpp"
+#include "sub_dir/include/vec1d.hpp"
+#include "sub_dir/include/vec2d.hpp"
 
+#include "sub_dir/include/image.hpp"
 
 int main(){
 
-   // image d("./bmpfiles/sample.bmp");
-   // image c("out.bmp");
-   // image d("out.bmp");
-      image e("./bmpfiles/cap2_01a.bmp");
+   vec1d a;
+
+   a.vec.push_back(1);
+   a.vec.push_back(2);
+   a.vec.push_back(3);
+
+   a.show();
+
+   a.createFile("./","vec1d.csv");
+   a.createFileHex("./","vec1d_hex.csv");
+   // std::string filename="./bmpfiles/sample.bmp";
+
+   // image img(filename);
 
    return 0;
 

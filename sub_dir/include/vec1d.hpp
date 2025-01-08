@@ -14,7 +14,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
 class vec1d {
 
   public:
@@ -51,7 +50,7 @@ class vec1d {
     // operator=() vectorによる代入
     vec1d& operator=(const std::vector<uint8_t>& obj) {
 
-       if(this->length!=obj.size()) {
+       if(this->vec.size()!=obj.size()) {
           throw std::runtime_error("size is different.");
        }
 
@@ -68,25 +67,10 @@ vec1d& operator=(const vec1d& obj) {
     return *this;
 }
 
-
-    // 255を超える値を255にする(参照を渡す)
-   void clip(uint8_t& d) {
-      if(d>255) d=255;
-   }
-
-   // 255を超える値を255にする(参照を渡さない)
-   uint8_t clip(uint8_t d) const {
-      return (d > 255) ? 255 : d;
-   }
-
     // 全要素にdを乗算
     void mul(uint8_t d) {
-
-       for(size_t i=0; i<this->length; i++) {
+       for(size_t i=0; i<this->vec.size(); i++) {
          this->vec[i]*=d;
-
-         clip(this->vec[i]);
-
       }
 
    }
@@ -97,7 +81,7 @@ vec1d& operator=(const vec1d& obj) {
          throw std::runtime_error("(in div function):division by zero.");
       }
 
-      for(size_t i=0; i<this->length; i++) {
+      for(size_t i=0; i<this->vec.size(); i++) {
          this->vec[i]/=d;
       }
    }
@@ -106,7 +90,7 @@ vec1d& operator=(const vec1d& obj) {
       friend vec1d operator/(uint8_t d,const vec1d& obj) {
          vec1d ret(obj.length);
 
-         for(size_t i=0; i<obj.length; i++) {
+         for(size_t i=0; i<obj.vec.size(); i++) {
             if(obj.vec[i]==0) {
                throw std::runtime_error("(in operator d/): division by zero.");
             }
@@ -118,16 +102,15 @@ vec1d& operator=(const vec1d& obj) {
 
     // 全要素にdを加算
    void add(uint8_t d) {
-      for(size_t i=0; i<this->length; i++) {
+      for(size_t i=0; i<this->vec.size(); i++) {
          this->vec[i]+=d;
-         clip(this->vec[i]);
       }
    }
 
     // 全要素にdを減算(friend function)
       friend vec1d operator-(uint8_t d,const vec1d& obj) {
          vec1d ret(obj.length);
-         for(size_t i=0; i<obj.length; i++) {
+         for(size_t i=0; i<obj.vec.size(); i++) {
             ret.vec[i] = (d >= obj.vec[i]) ? d - obj.vec[i] : 0;
          }
 
@@ -142,7 +125,7 @@ vec1d& operator=(const vec1d& obj) {
 
          vec1d ret(obj1.length);
 
-         for(size_t i=0; i<obj1.length; i++) {
+         for(size_t i=0; i<obj1.vec.size(); i++) {
             ret.vec[i] = static_cast<uint8_t>(std::min<int>(obj1.vec[i] * obj2.vec[i], 255));
          }
 
@@ -157,13 +140,8 @@ vec1d& operator=(const vec1d& obj) {
 
        vec1d ret(this->length);
 
-       for(size_t i=0; i<this->length; i++) {
+       for(size_t i=0; i<this->vec.size(); i++) {
           ret.vec[i]=this->vec[i]-obj.vec[i];
-
-          if(ret.vec[i]<0) {
-             ret.vec[i]=0;
-          }
-
        }
        return ret;
 
@@ -185,7 +163,7 @@ vec1d& operator=(const vec1d& obj) {
 }
 
 // vectorの内容を10進でファイルに書き込む
-void createFile(const int precision,const std::string& dir,const std::string& file_name) {
+void createFile(const std::string& dir,const std::string& file_name) {
 
    createDir(dir);
 
@@ -195,8 +173,8 @@ void createFile(const int precision,const std::string& dir,const std::string& fi
       throw std::runtime_error("(in createFile):can not open file.");
    }
 
-   for(size_t i=0; i<this->length; i++) {
-      ofs << "[" << i << "]: " << std::setw(precision) << this->vec[i] << std::endl;
+   for(size_t i=0; i<this->vec.size(); i++) {
+      ofs << "[" << i << "]: " << static_cast<int>(this->vec[i]) << std::endl;
    }
 
    ofs.close();
@@ -213,8 +191,9 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
       throw std::runtime_error("(in createFileHex):can not open file.");
    }
 
-   for(size_t i=0; i<this->length; i++) {
-      ofs <<"[" << i << "]: " << std::hex << std::setw(2) << static_cast<int>(this->vec[i]) << std::endl;
+   // 16進で出力,2バイトで表示、0埋め、大文字、改行
+   for(size_t i=0; i<this->vec.size(); i++) {
+      ofs << "[" << i << "]: " << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[i]) << std::endl;
    }
 
    ofs.close();
@@ -222,12 +201,16 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
 
 // vectorの内容を表示する
 void show() {
-   for(size_t i=0; i<this->length; i++) {
-      std::cout <<"[ " << i << "]: " << static_cast<int>(this->vec[i]) << std::endl;
+   for(size_t i=0; i<this->vec.size(); i++) {
+      std::cout <<"[" << i << "]: " << static_cast<int>(this->vec[i]) << std::endl;
    }
 
 }
 
+// vectorを返却する
+std::vector<uint8_t> getvector() const {
+   return this->vec;
+}
 
 };// closing brace for class vec1d
 

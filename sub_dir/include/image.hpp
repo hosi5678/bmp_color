@@ -148,15 +148,9 @@ T image::readBytes(std::ifstream& fp,std::size_t size){
 
   std::streampos file_position=fp.tellg();
 
-  if (file_position != -1) {
-      // std::cout << "--- current fp(" << fp.tellg() << ")--- : " << std::endl;
-  }else {
-      std::cerr << "ファイル位置の取得に失敗しました。" << std::endl;
-  }
+  if (file_position == -1) std::cerr << "ファイル位置の取得に失敗しました。" << std::endl;
 
-    // std::cout << "binary data: "  << static_cast<uint64_t>(data) << std::endl;
-
-    return toLittleEndian(data);
+  return toLittleEndian(data);
 
 }
 

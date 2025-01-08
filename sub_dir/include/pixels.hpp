@@ -29,5 +29,5 @@ typedef struct _tagPaletteStructure {
    int length=0;
    PaletteData palette;
 } Palette;
- 
+
 #endif /* AB004A64_177C_4DBB_8542_AC63E3C6F69B */

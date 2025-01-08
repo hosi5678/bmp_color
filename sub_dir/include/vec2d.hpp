@@ -19,8 +19,8 @@
 class vec2d {
 
     public:
-      int ylength;
-      int xlength;
+      size_t ylength;
+      size_t xlength;
       std::stringstream file_name;
 
       // uint8_t型の2次元vector
@@ -76,25 +76,14 @@ class vec2d {
       return *this;
    }
 
-   // 255を超える値を255にする(参照を渡す)
-   void clip(uint8_t& d) {
-      if(d>255) d=255;
-   }
-
-      // 255を超える値を255にする(参照を渡さない)
-   uint8_t clip(uint8_t d) const {
-      return (d > 255) ? 255 : d;
-   }
-
-
    // vec1dのオブジェクトをoperator=(vector 1d)の形式でvec2dに変換
    vec2d& operator=(const vec1d& obj) {
-      if(this->ylength*this->xlength!=obj.length) {
+      if(this->ylength*this->xlength!=obj.vec.size()) {
          throw std::runtime_error("(in operator=(vec1d) ):size is different.");
       }
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]=obj.vec[j*this->xlength+i];
          }
       }
@@ -106,8 +95,8 @@ class vec2d {
    vec1d to_vec1d(const vec2d& obj) const{
       vec1d ret(obj.ylength*obj.xlength);
 
-      for(int j=0; j<obj.ylength; j++) {
-         for(int i=0; i<obj.xlength; i++) {
+      for(size_t j=0; j<obj.ylength; j++) {
+         for(size_t i=0; i<obj.xlength; i++) {
             ret.vec[j*obj.xlength+i]=obj.vec[j][i];
          }
       }
@@ -124,10 +113,9 @@ class vec2d {
 
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]+obj.vec[j][i];
-            clip(ret.vec[j][i]);
          }
       }
 
@@ -143,13 +131,9 @@ class vec2d {
 
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]-obj.vec[j][i];
-
-            if(ret.vec[j][i]<0) {
-               ret.vec[j][i]=0;
-            }
          }
       }
 
@@ -160,10 +144,9 @@ class vec2d {
    vec2d operator+(uint8_t d) {
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]+d;
-            clip(ret.vec[j][i]);
          }
       }
 
@@ -174,8 +157,8 @@ class vec2d {
    vec2d operator-(uint8_t d) {
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=(d>=this->vec[j][i]) ? d-this->vec[j][i] : 0;
          }
       }
@@ -187,8 +170,8 @@ class vec2d {
    vec2d operator*(uint8_t d) {
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=static_cast<uint8_t>(std::min<int>(this->vec[j][i]*d,255));
          }
       }
@@ -200,8 +183,8 @@ class vec2d {
    vec2d operator/(uint8_t d) {
       vec2d ret(this->ylength,this->xlength);
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=d/this->vec[j][i];
          }
       }
@@ -211,30 +194,26 @@ class vec2d {
 
    // 全要素にdを加算
    void add(uint8_t d) {
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]+=d;
-            clip(this->vec[j][i]);
          }
       }
    }
 
    // 全要素にdを減算
    void sub(uint8_t d) {
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]-=d;
-            if(this->vec[j][i]<0) {
-               this->vec[j][i]=0;
-            }
          }
       }
    }
 
    // 全要素にdを乗算
    void mul(uint8_t d) {
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]=static_cast<uint8_t>(std::min<int>(this->vec[j][i]*d,255));
          }
       }
@@ -244,8 +223,8 @@ class vec2d {
    void div(uint8_t d) {
 
 
-      for(int j=0; j<this->ylength; j++) {
-         for(int i=0; i<this->xlength; i++) {
+      for(size_t j=0; j<this->ylength; j++) {
+         for(size_t i=0; i<this->xlength; i++) {
             if(this->vec[j][i]==0) {
                throw std::runtime_error("(in div d/ function):division by zero.");
             }
