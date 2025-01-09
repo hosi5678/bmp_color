@@ -11,19 +11,33 @@
 
 int main(){
 
-   vec1d a;
+   // vec1d a;
 
-   a.vec.push_back(1);
-   a.vec.push_back(2);
-   a.vec.push_back(3);
+   // for (int i=1; i<10; i++) {
+   //    a.vec.push_back(i);
+   // }
 
-   a.show();
+   // vec2d b(3,3);
 
-   a.createFile("./","vec1d.csv");
-   a.createFileHex("./","vec1d_hex.csv");
-   // std::string filename="./bmpfiles/sample.bmp";
+   // b=a;
 
-   // image img(filename);
+   // b.show2d();
+
+   // vec1d c=b.to_vec1d(b);
+
+   // c.show();
+
+   // a.vec.push_back(1);
+   // a.vec.push_back(2);
+   // a.vec.push_back(3);
+
+
+   // a.createFile("./","vec1d.csv");
+   // a.createFileHex("./","vec1d_hex.csv");
+
+   std::string filename="../bmpfiles/cap2_01a.bmp";
+
+   image img(filename);
 
    return 0;
 

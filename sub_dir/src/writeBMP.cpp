@@ -12,37 +12,38 @@ void image::writeBMP() {
 
   std::cout << "endian:" << isLittleEndian() << std::endl;
 
-  std::cout << "biBitCount :" << bmpinfoheader.biBitCount << std::endl;
-  std::cout << "biClrUsed :" << bmpinfoheader.biClrUsed << std::endl;
-  std::cout << "biSizeImage :" << bmpinfoheader.biSizeImage << std::endl;
+  std::cout << "biBitCount :" <<  bmpfileheader.biBitCount << std::endl;
+  std::cout << "biClrUsed :" <<   bmpfileheader.biClrUsed << std::endl;
+  std::cout << "biSizeImage :" << bmpfileheader.biSizeImage << std::endl;
 
   std::streampos pos=outfile.tellp();
   std::cout << "pos=" << pos << std::endl;
 
     // ヘッダ情報を書き出し
-    writeBytes(outfile, (bmpfileheader.bfType));
-    writeBytes(outfile, (bmpfileheader.bfSize));
-    writeBytes(outfile, (bmpfileheader.bfReserved1));
-    writeBytes(outfile, (bmpfileheader.bfReserved2));
-    writeBytes(outfile, (bmpfileheader.bfOffBits));
+    writeBMPFileHeader(outfile, bmpfileheader);
+    // writeBytes(outfile, (bmpfileheader.bfType));
+    // writeBytes(outfile, (bmpfileheader.bfSize));
+    // writeBytes(outfile, (bmpfileheader.bfReserved1));
+    // writeBytes(outfile, (bmpfileheader.bfReserved2));
+    // writeBytes(outfile, (bmpfileheader.bfOffBits));
 
-    writeBytes(outfile, (bmpinfoheader.biSize));
-    writeBytes(outfile, (bmpinfoheader.biWidth));
-    writeBytes(outfile, (bmpinfoheader.biHeight));
-    writeBytes(outfile, (bmpinfoheader.biPlanes));
-    writeBytes(outfile, (bmpinfoheader.biBitCount));
-    writeBytes(outfile, (bmpinfoheader.biCompression));
-    writeBytes(outfile, (bmpinfoheader.biSizeImage));
-    writeBytes(outfile, (bmpinfoheader.biXPelsPerMeter));
-    writeBytes(outfile, (bmpinfoheader.biYPelsPerMeter));
-    writeBytes(outfile, (bmpinfoheader.biClrUsed));
-    writeBytes(outfile, (bmpinfoheader.biClrImportant));
+    // writeBytes(outfile, (bmpfileheader.biSize));
+    // writeBytes(outfile, (bmpfileheader.biWidth));
+    // writeBytes(outfile, (bmpfileheader.biHeight));
+    // writeBytes(outfile, (bmpfileheader.biPlanes));
+    // writeBytes(outfile, (bmpfileheader.biBitCount));
+    // writeBytes(outfile, (bmpfileheader.biCompression));
+    // writeBytes(outfile, (bmpfileheader.biSizeImage));
+    // writeBytes(outfile, (bmpfileheader.biXPelsPerMeter));
+    // writeBytes(outfile, (bmpfileheader.biYPelsPerMeter));
+    // writeBytes(outfile, (bmpfileheader.biClrUsed));
+    // writeBytes(outfile, (bmpfileheader.biClrImportant));
 
   pos=outfile.tellp();
   std::cout << "header pos=" << pos << std::endl;
 
   // パレットの書き出し
-  for (std::size_t i=0; i<bmpinfoheader.biClrUsed; i++) {
+  for (std::size_t i=0; i<bmpfileheader.biClrUsed; i++) {
     writeBytes(outfile,(palette.palette.b[i]));
     writeBytes(outfile,(palette.palette.g[i]));
     writeBytes(outfile,(palette.palette.r[i]));

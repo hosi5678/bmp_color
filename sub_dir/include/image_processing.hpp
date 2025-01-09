@@ -18,7 +18,10 @@
 #include "./pixels.hpp"
 #include "./BITMAPHEADER.hpp"
 
-class image_processing {
+#include "./vec1d.hpp"
+#include "./vec2d.hpp"
+
+class image_processing:public virtual vec1d,public virtual vec2d {
 
   public:
     int height;
@@ -29,13 +32,17 @@ class image_processing {
     Image image;
 
     // 読み書きでアクセスできるように画像データをメンバとして持つ
-    std::vector<std::vector<uint8_t>> image_r,image_g,image_b;
+    // std::vector<std::vector<uint8_t>> image_r,image_g,image_b;
+
+    vec2d image_r;
+    vec2d image_g;
+    vec2d image_b;
 
     // default constructor
     image_processing(){}
 
     // constructor with argument.
-    image_processing(Image& imageData){
+    image_processing(Image& imageData):image_r(),image_g(),image_b(){ 
 
       // コンストラクタでwidth,heigthを設定する。
       height=imageData.height;
@@ -46,28 +53,30 @@ class image_processing {
       image.width=imageData.width;
 
       // 2次元配列の初期化
-      image.pixel.r.clear();
-      image.pixel.g.clear();
-      image.pixel.b.clear();
+      // image.pixel.r.clear();
+      // image.pixel.g.clear();
+      // image.pixel.b.clear();
 
       // 領域の確保
-      image.pixel.r.resize(height*width);
-      image.pixel.g.resize(height*width);
-      image.pixel.b.resize(height*width);
+      image_r=vec2d(height,width);
+      image_g=vec2d(height,width);
+      image_b=vec2d(height,width);
 
-      //  画像データをコピーする
-      for (int j=0; j<height; j++){
-        for (int i=0; i<width; i++) {
-          int index=j*width+i;
-            image.pixel.r[index]=imageData.pixel.r[index];
-            image.pixel.g[index]=imageData.pixel.g[index];
-            image.pixel.b[index]=imageData.pixel.b[index];
+      //  1次元配列を2次元配列にコピーする
+      image_r=imageData.pixel.r;
+      image_g=imageData.pixel.g;
+      image_b=imageData.pixel.b;
 
-        }
-      }
 
-      // 構造体の画像メンバを2次元配列に置き換える.
-      toMatrix();
+      // for (int j=0; j<height; j++){
+      //   for (int i=0; i<width; i++) {
+      //     int index=j*width+i;
+      //       image.pixel.r[index]=imageData.pixel.r[index];
+      //       image.pixel.g[index]=imageData.pixel.g[index];
+      //       image.pixel.b[index]=imageData.pixel.b[index];
+
+      //   }
+      // }
 
       // 画像処理
       mainProcess();
@@ -77,11 +86,9 @@ class image_processing {
 
     }
 
-    virtual void toMatrix();
     virtual void mainProcess();
     virtual void setImage();
     virtual uint8_t coefofData(uint8_t value);
-    virtual uint8_t correctValue(uint8_t value);
 
     // 構造体のメンバを返却する
     virtual Image returnImage(){

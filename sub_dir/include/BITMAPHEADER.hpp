@@ -14,16 +14,14 @@
 
 typedef struct _tagBITMAPFILEHEADER {
 
+// bitmapfileheader
   uint16_t bfType;      /**< ファイルタイプ、必ず"BM" */
   uint32_t bfSize;      /**< ファイルサイズ */
   uint16_t bfReserved1; /**< リザーブ */
   uint16_t bfReserved2; /**< リサーブ */
   uint32_t bfOffBits;   /**< 先頭から画像情報までのオフセット */
 
-} BITMAPFILEHEADER;
-
-typedef struct _tagBITMAPINFOHEADER {
-
+// bitmapinfoheader
   uint32_t biSize;         /**< この構造体のサイズ */
   uint32_t biWidth;         /**< 画像の幅 */
   uint32_t biHeight;        /**< 画像の高さ */
@@ -36,7 +34,7 @@ typedef struct _tagBITMAPINFOHEADER {
   uint32_t biClrUsed;      /**< カラーパレットのうち実際に使っている色の個数 */
   uint32_t biClrImportant; /**< カラーパレットのうち重要な色の数 */
 
-} BITMAPINFOHEADER ;
+} BITMAPFILEHEADER;
 
 // alignmentの設定を解除
 #pragma pack(pop)

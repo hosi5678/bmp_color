@@ -32,6 +32,16 @@ class vec2d {
       // constructor with argument
       vec2d(int _ylength, int _xlength): ylength(_ylength),xlength(_xlength),vec(_ylength,std::vector<u_int8_t>(_xlength,0)) {}
 
+      std::string sanitize(const std::string& str) {
+         std::string clean;
+         for (char c : str) {
+            if (std::isprint(static_cast<unsigned char>(c))) {
+                  clean += c;
+            }
+         }
+         return clean;
+      }
+
       // copy constructor
       vec2d(const vec2d& obj): ylength(obj.ylength),xlength(obj.xlength),vec(obj.vec) {}
 
@@ -256,7 +266,7 @@ void createFile(const std::string& dir,const std::string& file_name) {
 
    std::ofstream ofs(dir+"/"+file_name);
 
-   if(!ofs) {
+   if(!ofs.is_open()) {
       throw std::runtime_error("(in createFile):can not open file.");
    }
 
@@ -278,18 +288,27 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
 
    std::ofstream ofs(dir+"/"+file_name);
 
-   if(!ofs) {
+   if(!ofs.is_open()) {
       throw std::runtime_error("(in createFileHex):can not open file.");
    }
 
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         ofs << "[" << i << "]: " << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
+         ofs << "[" << i << "]: " << std::uppercase << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
 
    // ファイルを閉じる
    ofs.close();
+}
+
+// vec2dの内容を2次元で表示する
+void show2d() {
+   for (size_t j=0; j<this->ylength; j++) {
+      for(size_t i=0; i<this->xlength; i++) {
+         std::cout << "[" << j << "][" << i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
+      }
+   }
 }
 
 // vec2dの内容を表示する。

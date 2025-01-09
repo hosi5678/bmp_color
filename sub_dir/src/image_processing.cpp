@@ -18,32 +18,6 @@
 
 #include "../include/image_processing.hpp"
 
-// 画像の構造体を2次元配列に入れていく。
-void image_processing::toMatrix(){
-
-  // 2次元配列の構造体の初期化
-  image_r.clear();
-  image_g.clear();
-  image_b.clear();
-
-  // 領域を確保する
-  image_r.resize(height, std::vector<uint8_t>(width));
-  image_g.resize(height, std::vector<uint8_t>(width));
-  image_b.resize(height, std::vector<uint8_t>(width));
-
-  // 画像の構造体を2次元配列に入れていく。
-  for (int j=0; j<height; j++) {
-    for (int i=0; i< width; i++ ) {
-
-      int index=j*width+i;
-
-      image_r[j][i]=image.pixel.r[index];
-      image_g[j][i]=image.pixel.g[index];
-      image_b[j][i]=image.pixel.b[index];
-    }
-  }
-
-}
 
 // 2次元配列の処理(画像処理)を行う。
 void image_processing::mainProcess() {
@@ -53,9 +27,9 @@ void image_processing::mainProcess() {
   // 画像を書き換える
   for (int j=0; j<height; j++) {
     for (int i=0; i<width; i++) {
-      image_r[j][i]=(image_r[j][i]);
-      image_g[j][i]=(image_g[j][i]);
-      image_b[j][i]=(image_b[j][i]);
+      image_r.vec[j][i]=(image_r.vec[j][i]);
+      image_g.vec[j][i]=(image_g.vec[j][i]);
+      image_b.vec[j][i]=(image_b.vec[j][i]);
     }
   }
 
@@ -81,33 +55,18 @@ uint8_t image_processing::coefofData(uint8_t data) {
 // 2次元配列の値を構造体のメンバに入れてゆく
 void image_processing::setImage() {
 
-    // 構造体を一旦クリアする
-    image.pixel.r.clear();
-    image.pixel.g.clear();
-    image.pixel.b.clear();
-
-    // 領域を確保する
-    image.pixel.r.resize(height * width);
-    image.pixel.g.resize(height * width);
-    image.pixel.b.resize(height * width);
+    image.pixel.r.resize(0);
+    image.pixel.g.resize(0);
+    image.pixel.b.resize(0);
 
   // 書き換えた2次元配列の値を構造体のメンバに入れてゆく
   for (int j=0; j<height; j++ ) {
     for (int i=0; i<width; i++) {
-      int index = j * width + i;
-      image.pixel.r[index] = image_r[j][i];
-      image.pixel.g[index] = image_g[j][i];
-      image.pixel.b[index] = image_b[j][i];    }
+      // int index = j * width + i;
+      image.pixel.r.push_back(image_r.vec[j][i]);
+      image.pixel.g.push_back(image_g.vec[j][i]);
+      image.pixel.b.push_back(image_b.vec[j][i]);    
+    }
   }
-
-}
-
-// unsignedなので、0のチェックは不要で255より大きければ255を返却する。
-// UINT8_MAXの値が255なので、この処理は不要
-uint8_t image_processing::correctValue(uint8_t value){
-
-  if (value>255) return 255;
-
-  return value;
 
 }

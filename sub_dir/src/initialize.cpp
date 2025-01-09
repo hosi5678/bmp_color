@@ -23,20 +23,20 @@ void image::initialise(){
     std::cout << "ビッグエンディアンです。" << std::endl;
   }
 
-  width=bmpinfoheader.biWidth;
-  height=bmpinfoheader.biHeight;
+  width =bmpfileheader.biWidth;
+  height=bmpfileheader.biHeight;
 
   std::cout << "width: " << width << std::endl;
   std::cout << "height:" << height << std::endl;
 
   std::cout << "width x height: " << width*height << std::endl;
   std::cout << "3xwidthxheight:" << 3*width*height << std::endl;
-  std::cout << "biSizeImage: " << bmpinfoheader.biSizeImage << std::endl;
+  std::cout << "biSizeImage: " << bmpfileheader.biSizeImage << std::endl;
 
   std::cout << "padding: " << getPadding(width) << std::endl;
-  std::cout << "color depth: " << bmpinfoheader.biBitCount << std::endl;
+  std::cout << "color depth: " << bmpfileheader.biBitCount << std::endl;
 
-  std::cout << "palette length(biClrUsed): " << bmpinfoheader.biClrUsed << std::endl;
+  std::cout << "palette length(biClrUsed): " << bmpfileheader.biClrUsed << std::endl;
 
   std::streampos _pos = infile.tellg();
 
@@ -53,13 +53,13 @@ void image::initialise(){
 
   std::cout << "file size: " << bmpfileheader.bfSize << std::endl;
 
-  std::cout << "header size+widthxheightx3: " << DEFAULT_HEADER_SIZE+bmpinfoheader.biClrUsed*4+(width+(4-padding))*3*(height) << std::endl;
+  std::cout << "header size+widthxheightx3: " << DEFAULT_HEADER_SIZE+bmpfileheader.biClrUsed*4+(width+(4-padding))*3*(height) << std::endl;
 
-  palette.length=bmpinfoheader.biClrUsed;
+  palette.length=bmpfileheader.biClrUsed;
 
-  imagepixel.width=bmpinfoheader.biWidth;
-  imagepixel.height=bmpinfoheader.biHeight;
-  imagepixel.padding=getPadding(bmpinfoheader.biWidth);
+  imagepixel.width=bmpfileheader.biWidth;
+  imagepixel.height=bmpfileheader.biHeight;
+  imagepixel.padding=getPadding(bmpfileheader.biWidth);
   padding=imagepixel.padding;
 
       // palette dataの配列の確保

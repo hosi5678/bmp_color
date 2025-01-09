@@ -4,8 +4,8 @@ clear
 
 SECONDS=0
 
-rm out.bmp
-rm valgrind.log
+# rm out.bmp
+# rm valgrind.log
 
 # ディレクトリが存在するか確認
 # directory="./build/"
@@ -31,9 +31,13 @@ ninja -t clean
 ninja
 cd ..
 
-# ./build/main
+./build/main
 
-valgrind --leak-check=full --track-origins=yes --log-file=valgrind.log ./build/main
+# valgrind --leak-check=full --track-origins=yes --log-file=valgrind.log ./build/main
+
+# echo "valgrind.log report"
+
+# tail -n 1 valgrind.log
 
 runtime=$SECONDS
 

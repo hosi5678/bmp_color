@@ -193,7 +193,7 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
 
    // 16進で出力,2バイトで表示、0埋め、大文字、改行
    for(size_t i=0; i<this->vec.size(); i++) {
-      ofs << "[" << i << "]: " << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[i]) << std::endl;
+      ofs << "[" << std::dec<< i << "]: " << std::uppercase << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[i]) << std::endl;
    }
 
    ofs.close();
