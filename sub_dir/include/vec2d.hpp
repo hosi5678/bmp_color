@@ -16,7 +16,7 @@
 
 #include "vec1d.hpp"
 
-class vec2d {
+class vec2d : public virtual vec1d {
 
     public:
       size_t ylength;
@@ -272,7 +272,7 @@ void createFile(const std::string& dir,const std::string& file_name) {
 
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         ofs << "[" << i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
+         ofs << "[" << j*xlength+i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
 
@@ -294,12 +294,42 @@ void createFileHex(const std::string& dir,const std::string& file_name) {
 
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         ofs << "[" << i << "]: " << std::uppercase << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
+         ofs << "[" << j*xlength+i << "]: " << std::uppercase << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
 
    // ファイルを閉じる
    ofs.close();
+}
+
+// fileを引数にとり、ファイルポインタを取得し、1Byteずつファイル終端まで読み込みvec1dの配列に蓄え、16進数でファイルに格納する
+void read(const std::string& file) {
+
+   // binary modeでファイルを開く
+   std::ifstream ifs(file,std::ios::binary);
+
+   if(!ifs.is_open()) {
+      throw std::runtime_error("(in read):can not open file.");
+   }
+
+   std::vector<uint8_t> file_data;
+
+   // ファイルの終端まで読み込む
+   while(!ifs.eof()) {
+      uint8_t data;
+      ifs.read(reinterpret_cast<char*>(&data),sizeof(uint8_t));
+      file_data.push_back(data);
+   }
+
+   // ファイルを閉じる
+   ifs.close();
+
+   // vec1dに変換
+   vec1d v(file_data);
+
+   // vec1dの内容を16進で1列にファイルに書き込む
+   v.createFileHex("./bmp/","vec2d_hex.csv");
+
 }
 
 // vec2dの内容を2次元で表示する
@@ -315,7 +345,7 @@ void show2d() {
 void show() {
    for (size_t j=0; j<this->ylength; j++) {
       for(size_t i=0; i<this->xlength; i++) {
-         std::cout << "[" << i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
+         std::cout << "[" << j*xlength+i << "]: " << static_cast<int>(this->vec[j][i]) << std::endl;
       }
    }
 }

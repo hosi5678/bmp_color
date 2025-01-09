@@ -71,6 +71,8 @@ class image:public virtual image_processing {
 
       // bmpの書き込みとファイルのクローズ
       writeBMP();
+
+      writeImageRGB("out.csv",imagepixel);
     }
 
     // 初期的な処理
@@ -119,6 +121,7 @@ class image:public virtual image_processing {
         // bmp fileの書き込み
     void writeBMP();
 
+    void writeImageRGB(const std::string& filename, const Image& image);
     // bitmapのfileinfoheader構造体の書き込み
     BITMAPFILEHEADER readBMPFileHeader(std::ifstream& ifs);
 

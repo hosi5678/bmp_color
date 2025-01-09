@@ -19,25 +19,8 @@ void image::writeBMP() {
   std::streampos pos=outfile.tellp();
   std::cout << "pos=" << pos << std::endl;
 
-    // ヘッダ情報を書き出し
-    writeBMPFileHeader(outfile, bmpfileheader);
-    // writeBytes(outfile, (bmpfileheader.bfType));
-    // writeBytes(outfile, (bmpfileheader.bfSize));
-    // writeBytes(outfile, (bmpfileheader.bfReserved1));
-    // writeBytes(outfile, (bmpfileheader.bfReserved2));
-    // writeBytes(outfile, (bmpfileheader.bfOffBits));
-
-    // writeBytes(outfile, (bmpfileheader.biSize));
-    // writeBytes(outfile, (bmpfileheader.biWidth));
-    // writeBytes(outfile, (bmpfileheader.biHeight));
-    // writeBytes(outfile, (bmpfileheader.biPlanes));
-    // writeBytes(outfile, (bmpfileheader.biBitCount));
-    // writeBytes(outfile, (bmpfileheader.biCompression));
-    // writeBytes(outfile, (bmpfileheader.biSizeImage));
-    // writeBytes(outfile, (bmpfileheader.biXPelsPerMeter));
-    // writeBytes(outfile, (bmpfileheader.biYPelsPerMeter));
-    // writeBytes(outfile, (bmpfileheader.biClrUsed));
-    // writeBytes(outfile, (bmpfileheader.biClrImportant));
+  // ヘッダ情報を書き出し
+  writeBMPFileHeader(outfile, bmpfileheader);
 
   pos=outfile.tellp();
   std::cout << "header pos=" << pos << std::endl;
@@ -77,3 +60,20 @@ void image::writeBMP() {
   // fileのクローズ
   outfile.close();
 }
+
+// writeBytes(outfile, (bmpfileheader.bfType));
+// writeBytes(outfile, (bmpfileheader.bfSize));
+// writeBytes(outfile, (bmpfileheader.bfReserved1));
+// writeBytes(outfile, (bmpfileheader.bfReserved2));
+// writeBytes(outfile, (bmpfileheader.bfOffBits))
+// writeBytes(outfile, (bmpfileheader.biSize));
+// writeBytes(outfile, (bmpfileheader.biWidth));
+// writeBytes(outfile, (bmpfileheader.biHeight));
+// writeBytes(outfile, (bmpfileheader.biPlanes));
+// writeBytes(outfile, (bmpfileheader.biBitCount));
+// writeBytes(outfile, (bmpfileheader.biCompression));
+// writeBytes(outfile, (bmpfileheader.biSizeImage));
+// writeBytes(outfile, (bmpfileheader.biXPelsPerMeter));
+// writeBytes(outfile, (bmpfileheader.biYPelsPerMeter));
+// writeBytes(outfile, (bmpfileheader.biClrUsed));
+// writeBytes(outfile, (bmpfileheader.biClrImportant));

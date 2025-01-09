@@ -39,6 +39,10 @@ int main(){
 
    image img(filename);
 
+   vec2d file;
+
+   file.read("../bmpfiles/cap2_01a.bmp");
+
    return 0;
 
 }
