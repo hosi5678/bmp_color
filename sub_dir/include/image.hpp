@@ -71,7 +71,7 @@ class image:public virtual image_processing {
       // bmpの書き込みとファイルのクローズ
       writeBMP();
 
-      writeImageRGB("out.csv",imageRGB);
+      // writeImageRGB("out.csv",imageRGB);
     }
 
     // 初期的な処理
@@ -127,7 +127,7 @@ class image:public virtual image_processing {
     // bitmapのfileinfoheader構造体の書き込み
     void writeBMPFileHeader(std::ofstream& ofs, const BITMAPFILEHEADER& header);
 
-}; // class image
+}; // closing brace for class image
 
 // ファイルの位置から値を読み込む
 template <typename T>

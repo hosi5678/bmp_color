@@ -29,8 +29,8 @@ class vec1d {
     // copy constructor
    vec1d(const vec1d& obj): length(obj.length),vec(obj.vec) {}
 
-      // destructor
-      ~vec1d() = default;
+   // destructor
+   ~vec1d() = default;
 
     // constructor with vector
     vec1d(std::vector<uint8_t> obj):vec1d(obj.size()) {

@@ -11,7 +11,7 @@
 
 int main(){
 
-   std::string filename="../bmpfiles/cap2_01b.bmp";
+   std::string filename="../bmpfiles/cap2_01a.bmp";
 
    image img(filename);
 
