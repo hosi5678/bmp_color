@@ -27,7 +27,7 @@ class vec1d {
     vec1d(int _length): length(_length),vec(_length,0) {}
 
     // copy constructor
-      vec1d(const vec1d& obj): length(obj.length),vec(obj.vec) {}
+   vec1d(const vec1d& obj): length(obj.length),vec(obj.vec) {}
 
       // destructor
       ~vec1d() = default;
@@ -71,6 +71,7 @@ vec1d& operator=(const vec1d& obj) {
     void mul(uint8_t d) {
        for(size_t i=0; i<this->vec.size(); i++) {
          this->vec[i]*=d;
+         this->vec[i]=static_cast<uint8_t>(std::min<int>(this->vec[i],255));
       }
 
    }
@@ -104,6 +105,7 @@ vec1d& operator=(const vec1d& obj) {
    void add(uint8_t d) {
       for(size_t i=0; i<this->vec.size(); i++) {
          this->vec[i]+=d;
+         this->vec[i]=static_cast<uint8_t>(std::min<int>(this->vec[i],255));
       }
    }
 
@@ -142,6 +144,7 @@ vec1d& operator=(const vec1d& obj) {
 
        for(size_t i=0; i<this->vec.size(); i++) {
           ret.vec[i]=this->vec[i]-obj.vec[i];
+          ret.vec[i]=static_cast<uint8_t>(std::max<int>(ret.vec[i],0));
        }
        return ret;
 

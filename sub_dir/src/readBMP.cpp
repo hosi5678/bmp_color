@@ -14,16 +14,16 @@ void image::readBMP() {
 
     for (int i=0; i<palette.length; i++) {
       temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-      palette.palette.b.push_back(temp);
+      palette.b.push_back(temp);
 
       temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-      palette.palette.g.push_back(temp);
+      palette.g.push_back(temp);
 
       temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-      palette.palette.r.push_back(temp);
+      palette.r.push_back(temp);
 
       temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-      palette.palette.d.push_back(temp);
+      palette.dummy.push_back(temp);
 
     }
 
@@ -39,13 +39,13 @@ void image::readBMP() {
 
         // 画像データはb,g,rの3画素を読み出す
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imagepixel.pixel.b.push_back(temp);
+        imageRGB.b.push_back(temp);
 
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imagepixel.pixel.g.push_back(temp);
+        imageRGB.g.push_back(temp);
 
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imagepixel.pixel.r.push_back(temp);
+        imageRGB.r.push_back(temp);
 
       }
 

@@ -27,9 +27,8 @@ class image:public virtual image_processing {
 
     BITMAPFILEHEADER bmpfileheader; // ファイルヘッダ
     Palette palette; // パレットデータ
-    Image   imagepixel; // 画像データ
+    Image   imageRGB; // 画像データ
     image_processing img_processing; // 画像処理クラスのメンバ
-
 
     int height; // 画像の高さ
     int width;  // 画像の幅
@@ -61,10 +60,10 @@ class image:public virtual image_processing {
       readBMP();
 
       // bmpの画像処理のコンストラクタ呼び出し(引数:構造体)
-      image_processing img(imagepixel);
+      image_processing img(imageRGB);
 
       // 処理された構造体を受け取る
-      imagepixel=img.returnImage();
+      imageRGB=img.returnImage();
 
       // 出力ファイルをオープン
       outfile.open("./bmp/out.bmp");
@@ -72,7 +71,7 @@ class image:public virtual image_processing {
       // bmpの書き込みとファイルのクローズ
       writeBMP();
 
-      writeImageRGB("out.csv",imagepixel);
+      writeImageRGB("out.csv",imageRGB);
     }
 
     // 初期的な処理

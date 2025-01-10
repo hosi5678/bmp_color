@@ -46,40 +46,20 @@ void image::initialise(){
 
   std::cout << "original position: " << _pos << std::endl;
 
-  // std::cout << "size of uint8_t: " << sizeof(uint8_t) << std::endl;
-  // std::cout << "size of uint16_t: " << sizeof(uint16_t) << std::endl;
-  // std::cout << "size of uint32_t: " << sizeof(uint32_t) << std::endl;
-  // std::cout << "uint8 max: " << UINT8_MAX << std::endl;
-
   std::cout << "file size: " << bmpfileheader.bfSize << std::endl;
 
   std::cout << "header size+widthxheightx3: " << DEFAULT_HEADER_SIZE+bmpfileheader.biClrUsed*4+(width+(4-padding))*3*(height) << std::endl;
 
   palette.length=bmpfileheader.biClrUsed;
 
-  imagepixel.width=bmpfileheader.biWidth;
-  imagepixel.height=bmpfileheader.biHeight;
-  imagepixel.padding=getPadding(bmpfileheader.biWidth);
-  padding=imagepixel.padding;
-
-      // palette dataの配列の確保
-
-    palette.palette.b.clear();
-    palette.palette.g.clear();
-    palette.palette.r.clear();
-    // palette.palette_data.dummy.clear();
-
-    palette.palette.b.resize(0);
-    palette.palette.g.resize(0);
-    palette.palette.r.resize(0);
-    palette.palette.d.resize(0);
-
-    imagepixel.pixel.b.clear();
-    imagepixel.pixel.g.clear();
-    imagepixel.pixel.r.clear();
-
-    imagepixel.pixel.b.resize(0);
-    imagepixel.pixel.g.resize(0);
-    imagepixel.pixel.r.resize(0);
+  imageRGB.width=bmpfileheader.biWidth;
+  imageRGB.height=bmpfileheader.biHeight;
+  imageRGB.padding=getPadding(bmpfileheader.biWidth);
+  padding=imageRGB.padding;
 
 }
+
+  // std::cout << "size of uint8_t: " << sizeof(uint8_t) << std::endl;
+  // std::cout << "size of uint16_t: " << sizeof(uint16_t) << std::endl;
+  // std::cout << "size of uint32_t: " << sizeof(uint32_t) << std::endl;
+  // std::cout << "uint8 max: " << UINT8_MAX << std::endl;

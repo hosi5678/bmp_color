@@ -7,8 +7,8 @@ void image::writeBMP() {
   std::cout << "padding:" << padding << std::endl;
   std::cout << "width:" << width << std::endl;
   std::cout << "height:" << height << std::endl;
-  std::cout << "length of 1d vector of image:" << imagepixel.pixel.r.size()<< std::endl;
-  std::cout << "length of 1d vector of palette:" << palette.palette.r.size() << std::endl;
+  std::cout << "length of 1d vector of image:" << imageRGB.r.size()<< std::endl;
+  std::cout << "length of 1d vector of palette:" << palette.r.size() << std::endl;
 
   std::cout << "endian:" << isLittleEndian() << std::endl;
 
@@ -27,10 +27,10 @@ void image::writeBMP() {
 
   // パレットの書き出し
   for (std::size_t i=0; i<bmpfileheader.biClrUsed; i++) {
-    writeBytes(outfile,(palette.palette.b[i]));
-    writeBytes(outfile,(palette.palette.g[i]));
-    writeBytes(outfile,(palette.palette.r[i]));
-    writeBytes(outfile,(palette.palette.d[i]));
+    writeBytes(outfile,(palette.b[i]));
+    writeBytes(outfile,(palette.g[i]));
+    writeBytes(outfile,(palette.r[i]));
+    writeBytes(outfile,(palette.dummy[i]));
   }
 
   pos=outfile.tellp();
@@ -42,9 +42,9 @@ void image::writeBMP() {
     for (int j = 0; j< height ; j++) {
       for (int i = 0; i < width; i++) {
         // カラーは3個のチャンネルを書き込む。
-          writeBytes(outfile, (imagepixel.pixel.b[j * width + i]));
-          writeBytes(outfile, (imagepixel.pixel.g[j * width + i]));
-          writeBytes(outfile, (imagepixel.pixel.r[j * width + i]));
+          writeBytes(outfile, (imageRGB.b[j * width + i]));
+          writeBytes(outfile, (imageRGB.g[j * width + i]));
+          writeBytes(outfile, (imageRGB.r[j * width + i]));
 
       }
 

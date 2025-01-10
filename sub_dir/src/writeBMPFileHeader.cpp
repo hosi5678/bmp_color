@@ -1,4 +1,4 @@
-#include "../include//image.hpp"
+#include "../include/image.hpp"
 
 void image::writeBMPFileHeader(std::ofstream& ofs, const BITMAPFILEHEADER& bmpfileheader) {
 
@@ -16,5 +16,3 @@ void image::writeBMPFileHeader(std::ofstream& ofs, const BITMAPFILEHEADER& bmpfi
         std::cout << "Header written to file successfully: " << filename << std::endl;
     }
 }
-
-

@@ -43,7 +43,7 @@ class vec2d : public virtual vec1d {
       }
 
       // copy constructor
-      vec2d(const vec2d& obj): ylength(obj.ylength),xlength(obj.xlength),vec(obj.vec) {}
+      vec2d(const vec2d& obj):vec1d(obj), ylength(obj.ylength),xlength(obj.xlength),vec(obj.vec) {}
 
       // constructor with vector
       vec2d(std::vector<std::vector<uint8_t>> obj):vec2d(obj.size(),obj[0].size()) {
@@ -65,6 +65,7 @@ class vec2d : public virtual vec1d {
 
    // operator=(vector) vectorによる代入
    vec2d& operator=(const std::vector<std::vector<uint8_t>>& obj) {
+
       if(this->ylength!=obj.size() || this->xlength!=obj[0].size()) {
          throw std::runtime_error("(in operator=vector):size is different.");
       }
@@ -102,7 +103,8 @@ class vec2d : public virtual vec1d {
    }
 
    // vec2dのオブジェクトをoperator=(vec2d)の形式でvec1dに変換
-   vec1d to_vec1d(const vec2d& obj) const{
+   vec1d to_vec1d(const vec2d& obj) const {
+
       vec1d ret(obj.ylength*obj.xlength);
 
       for(size_t j=0; j<obj.ylength; j++) {
@@ -126,6 +128,7 @@ class vec2d : public virtual vec1d {
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]+obj.vec[j][i];
+            ret.vec[j][i]=static_cast<uint8_t>(std::min<int>(ret.vec[j][i],255));
          }
       }
 
@@ -144,6 +147,7 @@ class vec2d : public virtual vec1d {
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]-obj.vec[j][i];
+            ret.vec[j][i]=static_cast<uint8_t>(std::max<int>(ret.vec[j][i],0));
          }
       }
 
@@ -157,6 +161,7 @@ class vec2d : public virtual vec1d {
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {
             ret.vec[j][i]=this->vec[j][i]+d;
+            ret.vec[j][i]=static_cast<uint8_t>(std::min<int>(ret.vec[j][i],255));
          }
       }
 
@@ -207,6 +212,7 @@ class vec2d : public virtual vec1d {
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]+=d;
+            this->vec[j][i]=static_cast<uint8_t>(std::min<int>(this->vec[j][i],255));
          }
       }
    }
@@ -216,6 +222,7 @@ class vec2d : public virtual vec1d {
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {
             this->vec[j][i]-=d;
+            this->vec[j][i]=static_cast<uint8_t>(std::max<int>(this->vec[j][i],0));
          }
       }
    }
@@ -231,7 +238,6 @@ class vec2d : public virtual vec1d {
 
    // 全要素にdを除算
    void div(uint8_t d) {
-
 
       for(size_t j=0; j<this->ylength; j++) {
          for(size_t i=0; i<this->xlength; i++) {

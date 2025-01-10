@@ -9,15 +9,14 @@ void image::writeImageRGB(const std::string& filename, const Image& image) {
         return;
     }
 
-    ofs << "red, green, blue" << std::endl;
+    ofs << "[i]: red, green, blue" << std::endl;
 
     for (int j = 0; j <image.height ; j++) {
-
         for (int i = 0; i < image.width; i++) {
-            ofs << "[" << j*image.height+i << "]: " 
-                << static_cast<int>(image.pixel.r[j*image.height+i]) << ","
-                << static_cast<int>(image.pixel.g[j*image.height+i]) << ","
-                << static_cast<int>(image.pixel.b[j*image.height+i]) << std::endl;
+            ofs << "[" << j*image.width+i << "]: " 
+                << static_cast<int>(image.r[j*image.height+i]) << ","
+                << static_cast<int>(image.g[j*image.height+i]) << ","
+                << static_cast<int>(image.b[j*image.height+i]) << std::endl;
         }
 
         ofs << std::endl;

@@ -52,36 +52,20 @@ class image_processing:public virtual vec1d,public virtual vec2d {
       image.height=imageData.height;
       image.width=imageData.width;
 
-      // 2次元配列の初期化
-      // image.pixel.r.clear();
-      // image.pixel.g.clear();
-      // image.pixel.b.clear();
-
       // 領域の確保
       image_r=vec2d(height,width);
       image_g=vec2d(height,width);
       image_b=vec2d(height,width);
 
       //  1次元配列を2次元配列にコピーする
-      image_r=imageData.pixel.r;
-      image_g=imageData.pixel.g;
-      image_b=imageData.pixel.b;
-
-
-      // for (int j=0; j<height; j++){
-      //   for (int i=0; i<width; i++) {
-      //     int index=j*width+i;
-      //       image.pixel.r[index]=imageData.pixel.r[index];
-      //       image.pixel.g[index]=imageData.pixel.g[index];
-      //       image.pixel.b[index]=imageData.pixel.b[index];
-
-      //   }
-      // }
+      image_r=imageData.r;
+      image_g=imageData.g;
+      image_b=imageData.b;
 
       // 画像処理
       mainProcess();
 
-      // 2次元配列を構造体に設定する。
+      // 2次元配列をImageRGB構造体に設定する。
       setImage();
 
     }
