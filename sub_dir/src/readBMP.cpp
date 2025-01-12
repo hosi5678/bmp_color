@@ -6,13 +6,14 @@ void image::readBMP() {
 
     std::streampos current_pos=infile.tellg();
 
-    std::cout << "current position: " << current_pos << std::endl;
-
     std::cout << "palette length: " << palette.length << std::endl;
+
+    std::cout << "current position: " << current_pos << std::endl;
 
     int temp=0;
 
     for (int i=0; i<palette.length; i++) {
+
       temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
       palette.b.push_back(temp);
 

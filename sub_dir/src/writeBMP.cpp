@@ -7,8 +7,8 @@ void image::writeBMP() {
   std::cout << "padding:" << padding << std::endl;
   std::cout << "width:" << width << std::endl;
   std::cout << "height:" << height << std::endl;
-  std::cout << "length of 1d vector of image:" << image1dRGB.r.size()<< std::endl;
   std::cout << "length of 1d vector of palette:" << palette.r.size() << std::endl;
+  std::cout << "length of 1d vector of image:" << image1dRGB.r.size()<< std::endl;
 
   std::cout << "endian:" << isLittleEndian() << std::endl;
 
@@ -23,7 +23,7 @@ void image::writeBMP() {
   writeBMPFileHeader(outfile, bmpfileheader);
 
   pos=outfile.tellp();
-  std::cout << "header pos=" << pos << std::endl;
+  std::cout << "pos(header):" << pos << std::endl;
 
   // パレットの書き出し
   for (std::size_t i=0; i<bmpfileheader.biClrUsed; i++) {
@@ -34,7 +34,7 @@ void image::writeBMP() {
   }
 
   pos=outfile.tellp();
-  std::cout << "palette pos=" << pos << std::endl;
+  std::cout << "pos(palette):" << pos << std::endl;
 
   std::cout << "padding:" << padding << std::endl;
 
@@ -55,7 +55,7 @@ void image::writeBMP() {
     }
 
   pos=outfile.tellp();
-  std::cout << "image pos=" << pos << std::endl;
+  std::cout << "pos(image):" << pos << std::endl;
 
   // fileのクローズ
   outfile.close();

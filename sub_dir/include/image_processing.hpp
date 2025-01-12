@@ -42,19 +42,19 @@ class image_processing:public virtual vec1d,public virtual vec2d {
     image_processing(){}
 
     // constructor with argument.
-    image_processing(structImage& _structimage):
+    image_processing(structImage& _structImage):
       image2d_r(),
       image2d_g(),
       image2d_b()
     {
 
       // コンストラクタでwidth,heigthを設定する。
-      height=_structimage.height;
-      width= _structimage.width;
+      height=_structImage.height;
+      width= _structImage.width;
 
       // 構造体メンバに値をセットする
-      structimage.height=_structimage.height;
-      structimage.width= _structimage.width;
+      structimage.height=_structImage.height;
+      structimage.width= _structImage.width;
 
       // 領域の確保
       image2d_r=vec2d(height,width);
@@ -62,9 +62,9 @@ class image_processing:public virtual vec1d,public virtual vec2d {
       image2d_b=vec2d(height,width);
 
       //  1次元配列を2次元配列にコピーする
-      image2d_r=_structimage.r;
-      image2d_g=_structimage.g;
-      image2d_b=_structimage.b;
+      image2d_r=_structImage.r;
+      image2d_g=_structImage.g;
+      image2d_b=_structImage.b;
 
       // 画像処理
       mainProcess();
@@ -83,7 +83,7 @@ class image_processing:public virtual vec1d,public virtual vec2d {
       return structimage;
     }
 
-    // 2次元配列を構造体に格納する。
+    // 2次元配列を構造体(1次元)に格納する。
     virtual void setImage(){
       for (int j=0; j<height; j++ ) {
         for (int i=0; i<width; i++) {

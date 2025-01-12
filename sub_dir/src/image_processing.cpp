@@ -54,17 +54,3 @@ uint8_t image_processing::coefofData(uint8_t data) {
 
 }
 
-// 2次元配列の値を構造体のメンバに入れてゆく
-// void image_processing::setImage() {
-
-//   // 書き換えた2次元配列の値を構造体のメンバに入れてゆく
-//   for (int j=0; j<height; j++ ) {
-//     for (int i=0; i<width; i++) {
-//       // int index = j * width + i;
-//       structimage.r.push_back(image2d_r.vec[j][i]);
-//       structimage.g.push_back(image2d_g.vec[j][i]);
-//       structimage.b.push_back(image2d_b.vec[j][i]);
-//     }
-//   }
-
-// }
