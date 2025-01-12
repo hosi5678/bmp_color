@@ -7,7 +7,7 @@ void image::writeBMP() {
   std::cout << "padding:" << padding << std::endl;
   std::cout << "width:" << width << std::endl;
   std::cout << "height:" << height << std::endl;
-  std::cout << "length of 1d vector of image:" << imageRGB.r.size()<< std::endl;
+  std::cout << "length of 1d vector of image:" << image1dRGB.r.size()<< std::endl;
   std::cout << "length of 1d vector of palette:" << palette.r.size() << std::endl;
 
   std::cout << "endian:" << isLittleEndian() << std::endl;
@@ -42,9 +42,9 @@ void image::writeBMP() {
     for (int j = 0; j< height ; j++) {
       for (int i = 0; i < width; i++) {
         // カラーは3個のチャンネルを書き込む。
-          writeBytes(outfile, (imageRGB.b[j * width + i]));
-          writeBytes(outfile, (imageRGB.g[j * width + i]));
-          writeBytes(outfile, (imageRGB.r[j * width + i]));
+          writeBytes(outfile, (image1dRGB.b[j * width + i]));
+          writeBytes(outfile, (image1dRGB.g[j * width + i]));
+          writeBytes(outfile, (image1dRGB.r[j * width + i]));
 
       }
 

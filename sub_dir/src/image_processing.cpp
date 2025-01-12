@@ -27,11 +27,13 @@ void image_processing::mainProcess() {
   // 2次元画像(vec2d)を書き換える
   for (int j=0; j<height; j++) {
     for (int i=0; i<width; i++) {
-      image_r.vec[j][i]=(image_r.vec[j][i]);
-      image_g.vec[j][i]=(image_g.vec[j][i]);
-      image_b.vec[j][i]=(image_b.vec[j][i]);
+      image2d_r.vec[j][i]=(image2d_r.vec[j][i]);
+      image2d_g.vec[j][i]=(image2d_g.vec[j][i]);
+      image2d_b.vec[j][i]=(image2d_b.vec[j][i]);
     }
   }
+
+  std::cout << std::endl;
 
 }
 
@@ -53,16 +55,16 @@ uint8_t image_processing::coefofData(uint8_t data) {
 }
 
 // 2次元配列の値を構造体のメンバに入れてゆく
-void image_processing::setImage() {
+// void image_processing::setImage() {
 
-  // 書き換えた2次元配列の値を構造体のメンバに入れてゆく
-  for (int j=0; j<height; j++ ) {
-    for (int i=0; i<width; i++) {
-      // int index = j * width + i;
-      image.r.push_back(image_r.vec[j][i]);
-      image.g.push_back(image_g.vec[j][i]);
-      image.b.push_back(image_b.vec[j][i]);
-    }
-  }
+//   // 書き換えた2次元配列の値を構造体のメンバに入れてゆく
+//   for (int j=0; j<height; j++ ) {
+//     for (int i=0; i<width; i++) {
+//       // int index = j * width + i;
+//       structimage.r.push_back(image2d_r.vec[j][i]);
+//       structimage.g.push_back(image2d_g.vec[j][i]);
+//       structimage.b.push_back(image2d_b.vec[j][i]);
+//     }
+//   }
 
-}
+// }

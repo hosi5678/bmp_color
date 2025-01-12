@@ -4,7 +4,7 @@ clear
 
 SECONDS=0
 
-# rm out.bmp
+rm ./bmp/out.bmp
 # rm valgrind.log
 
 # ディレクトリが存在するか確認

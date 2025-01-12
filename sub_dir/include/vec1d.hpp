@@ -215,6 +215,12 @@ std::vector<uint8_t> getvector() const {
    return this->vec;
 }
 
+std::vector<uint8_t> push_back(uint8_t data) {
+
+   this->vec.push_back(data);
+   return this->vec;
+}
+
 };// closing brace for class vec1d
 
 #endif /* B9B8D291_40EB_4F6C_BA53_03E3CEF4EED3 */

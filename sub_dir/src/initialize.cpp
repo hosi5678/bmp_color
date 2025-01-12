@@ -46,7 +46,7 @@ void image::initialise(){
     std::cerr << "デフォルトサイズを読んでいません。" << std::endl;
   }
 
-  std::cout << "original position: " << _pos << std::endl;
+  std::cout << "original position fpos: " << _pos << std::endl;
 
   std::cout << "bfSize(file size): " << bmpfileheader.bfSize << std::endl;
 
@@ -54,9 +54,11 @@ void image::initialise(){
 
   palette.length=bmpfileheader.biClrUsed;
 
-  imageRGB.width=bmpfileheader.biWidth;
-  imageRGB.height=bmpfileheader.biHeight;
-  imageRGB.padding=padding;
+  image1dRGB.width=bmpfileheader.biWidth;
+  image1dRGB.height=bmpfileheader.biHeight;
+  image1dRGB.padding=padding;
+
+  std::cout << std::endl;
 
 }
 

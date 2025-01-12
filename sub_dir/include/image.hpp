@@ -27,7 +27,7 @@ class image:public virtual image_processing {
 
     BITMAPFILEHEADER bmpfileheader; // ファイルヘッダ
     Palette palette; // パレットデータ
-    Image   imageRGB; // 画像データ
+    structImage   image1dRGB; // 画像データ
     image_processing img_processing; // 画像処理クラスのメンバ
 
     int height; // 画像の高さ
@@ -60,10 +60,10 @@ class image:public virtual image_processing {
       readBMP();
 
       // bmpの画像処理のコンストラクタ呼び出し(引数:構造体)
-      image_processing img(imageRGB);
+      image_processing img(image1dRGB);
 
       // 処理された構造体を受け取る
-      imageRGB=img.returnImage();
+      image1dRGB=img.returnImage();
 
       // 出力ファイルをオープン
       outfile.open("./bmp/out.bmp");
@@ -120,7 +120,7 @@ class image:public virtual image_processing {
         // bmp fileの書き込み
     void writeBMP();
 
-    void writeImageRGB(const std::string& filename, const Image& image);
+    void writeImageRGB(const std::string& filename, const structImage& image);
     // bitmapのfileinfoheader構造体の書き込み
     BITMAPFILEHEADER readBMPFileHeader(std::ifstream& ifs);
 

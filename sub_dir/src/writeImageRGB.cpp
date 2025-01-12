@@ -1,6 +1,6 @@
 #include "../include/image.hpp"
 
-void image::writeImageRGB(const std::string& filename, const Image& image) {
+void image::writeImageRGB(const std::string& filename, const structImage& image) {
 
     std::ofstream ofs("./bmp/"+filename);
 
@@ -13,7 +13,7 @@ void image::writeImageRGB(const std::string& filename, const Image& image) {
 
     for (int j = 0; j <image.height ; j++) {
         for (int i = 0; i < image.width; i++) {
-            ofs << "[" << j*image.width+i << "]: " 
+            ofs << "[" << j*image.width+i << "]: "
                 << static_cast<int>(image.r[j*image.height+i]) << ","
                 << static_cast<int>(image.g[j*image.height+i]) << ","
                 << static_cast<int>(image.b[j*image.height+i]) << std::endl;

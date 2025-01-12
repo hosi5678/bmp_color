@@ -39,13 +39,13 @@ void image::readBMP() {
 
         // 画像データはb,g,rの3画素を読み出す
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imageRGB.b.push_back(temp);
+        image1dRGB.b.push_back(temp);
 
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imageRGB.g.push_back(temp);
+        image1dRGB.g.push_back(temp);
 
         temp=readBytes<uint8_t>(infile,sizeof(uint8_t));
-        imageRGB.r.push_back(temp);
+        image1dRGB.r.push_back(temp);
 
       }
 

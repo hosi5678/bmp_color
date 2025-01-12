@@ -10,7 +10,7 @@ typedef struct _tagImageRGBStructure {
    std::vector<uint8_t> b;
    std::vector<uint8_t> g;
 	std::vector<uint8_t> r;
-} Image;
+} structImage;
 
 typedef struct _tagPaletteStructure {
    int length=0;
